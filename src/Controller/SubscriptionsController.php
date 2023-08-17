@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Subscription;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,10 +20,23 @@ class SubscriptionsController extends AbstractController
  
         $dataArray = [
             'success' => true,
-            'subscriptions' => [
-                
-            ]
+            'subscriptions' => $this->generateSubscriptions()
         ];
         return $this->json($dataArray);
+    }
+
+    protected function generateSubscriptions(): array
+    {
+        $returnArray[] = (new Subscription)
+            ->setName("Netflix")
+            ->setStartDate(new \DateTime)
+            ->toArray();
+
+            $returnArray[] = (new Subscription)
+            ->setName("Amazon Prime")
+            ->setStartDate(new \DateTime)
+            ->toArray();
+
+        return $returnArray;
     }
 }
